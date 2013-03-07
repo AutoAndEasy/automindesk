@@ -5,7 +5,7 @@
 ## Program: Auto Min Desktop V1.0
 ## Author:Chier Xuefei
 ## Date: 2013-03-03
-## Update:None
+## Update:20130307 - zhangyanying - change echo to cat to make the shell read nice
 
 
 ################ Env Define ################
@@ -137,28 +137,31 @@ chkconfig --level 35 vncserver on
 
 cp ~/.vnc/xstartup ~/.vnc/xstartup.bak
 
-echo '#!/bin/sh' > ~/.vnc/xstartup
-echo '#make by chier xuefei' >> ~/.vnc/xstartup
-echo '[ -r /etc/sysconfig/i18n ] && . /etc/sysconfig/i18n' >> ~/.vnc/xstartup
-echo 'export LANG' >> ~/.vnc/xstartup
-echo 'export SYSFONT' >> ~/.vnc/xstartup
-echo 'vncconfig -iconic &' >> ~/.vnc/xstartup
-echo 'unset SESSION_MANAGER' >> ~/.vnc/xstartup
-echo 'unset DBUS_SESSION_BUS_ADDRESS' >> ~/.vnc/xstartup
-echo 'OS=`uname -s`' >> ~/.vnc/xstartup
-echo 'if [ $OS = '\''Linux'\'' ]; then' >> ~/.vnc/xstartup
-echo '  case "$WINDOWMANAGER" in' >> ~/.vnc/xstartup
-echo '    *gnome*)' >> ~/.vnc/xstartup
-echo '      if [ -e /etc/SuSE-release ]; then' >> ~/.vnc/xstartup
-echo '        PATH=$PATH:/opt/gnome/bin' >> ~/.vnc/xstartup
-echo '        export PATH' >> ~/.vnc/xstartup
-echo '      fi' >> ~/.vnc/xstartup
-echo '      ;;' >> ~/.vnc/xstartup
-echo '  esac' >> ~/.vnc/xstartup
-echo 'fi' >> ~/.vnc/xstartup
-echo '[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources' >> ~/.vnc/xstartup
-echo 'xsetroot -solid grey' >> ~/.vnc/xstartup
-echo 'xterm -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &' >> ~/.vnc/xstartup
+cat > ~/.vnc/xstartup << \EOF
+#!/bin/sh
+#make by chier xuefei
+[ -r /etc/sysconfig/i18n ] && . /etc/sysconfig/i18n
+export LANG
+export SYSFONT
+vncconfig -iconic &
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+OS=`uname -s`
+if [ $OS = 'Linux' ]; then
+  case "$WINDOWMANAGER" in
+    *gnome*)
+      if [ -e /etc/SuSE-release ]; then
+        PATH=$PATH:/opt/gnome/bin
+        export PATH
+      fi
+      ;;
+  esac
+fi
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+xsetroot -solid grey
+xterm -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
+EOF
+
 if [ -z "`echo $InputVar|grep 'without\-fluxbox'`" ]; then
 	echo 'fluxbox &' >> ~/.vnc/xstartup
 else
