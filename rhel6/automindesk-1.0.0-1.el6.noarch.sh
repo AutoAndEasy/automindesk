@@ -6,6 +6,7 @@
 ## Author:Chier Xuefei
 ## Date: 2013-03-03
 ## Update:20130307 - zhangyanying - change echo to cat to make the shell read nice
+##        20130316 - chier xuefei - add the vncservers config
 
 
 ################ Env Define ################
@@ -178,6 +179,9 @@ fi
 echo "export GTK_IM_MODULE=ibus" >> /etc/bashrc
 echo "export XMODIFIERS=@im=ibus" >> /etc/bashrc
 echo "export QT_IM_MODULE=ibus" >> /etc/bashrc
+
+echo 'VNCSERVERS="1:root"' >> /etc/sysconfig/vncservers
+echo 'VNCSERVERARGS[1]="-geometry 800x600"' >> /etc/sysconfig/vncservers
 
 _end_msg
 ############  Clean Cache  ############
