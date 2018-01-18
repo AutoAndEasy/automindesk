@@ -118,8 +118,9 @@ yum -y install $AppendPkg "@Chinese support"
 
 ##defalut install firefox
 if [ -z "`echo $InputVar|grep 'without\-firefox'`" ]; then
-	wget http://fpdownload.macromedia.com/get/flashplayer/pdc/11.2.202.273/flash-plugin-11.2.202.273-release.x86_64.rpm
-	rpm -ivh flash-plugin-11.2.202.273-release.x86_64.rpm
+	#wget http://fpdownload.macromedia.com/get/flashplayer/pdc/11.2.202.273/flash-plugin-11.2.202.273-release.x86_64.rpm
+	wget http://rpmfind.net/linux/dag/redhat/el6/en/x86_64/dag/RPMS/flash-plugin-11.2.202.394-0.1.el6.rf.x86_64.rpm
+	rpm -ivh flash-plugin-11.2.202.394-0.1.el6.rf.x86_64.rpm
 fi
 
 ############  Soft Conf  ############
